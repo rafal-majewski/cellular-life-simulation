@@ -11,3 +11,4 @@ class Camera(AbstractCamera):
 		self.drawer.clear()
 		for cell in world.cells:
 			self.drawer.drawCell(cell)
+		self.drawer.display()

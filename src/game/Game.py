@@ -13,4 +13,5 @@ class Game:
 		self.camera = camera
 
 	def start(self) -> None:
-		self.camera.display(self.world)
+		while True:
+			self.camera.display(self.world)

@@ -1,12 +1,17 @@
+import pygame
 from src.game.Game import Game
 from src.pygameimp.Camera import Camera
+from src.abstractcamera.AbstractCamera import AbstractCamera
 from src.engine.World import World
-from pygame import Surface
+import pygame
 from src.pygameimp.Drawer import Drawer
 
 
 if __name__ == "__main__":
-	drawer = Drawer(Surface((100, 100)))
-	world = World()
-	camera = Camera(drawer)
-	game = Game(world=world, camera=camera)
+	pygame.init()
+	surface: pygame.surface.Surface = pygame.display.set_mode((800, 600))
+	drawer: Drawer = Drawer(pygame.display.set_mode((800, 600)))
+	world: World = World()
+	camera: AbstractCamera = Camera(drawer)
+	game: Game = Game(world=world, camera=camera)
+	game.start()

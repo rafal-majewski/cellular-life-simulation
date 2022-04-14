@@ -1,5 +1,6 @@
 from src.engine.Cell import Cell
-from pygame import Surface
+from pygame.surface import Surface
+import pygame
 
 
 class Drawer:
@@ -11,3 +12,6 @@ class Drawer:
 
 	def clear(self) -> None:
 		self.surface.fill((255, 255, 255))
+
+	def display(self) -> None:
+		pygame.display.flip()
