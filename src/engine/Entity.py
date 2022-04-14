@@ -3,9 +3,17 @@ from src.engine.Point2 import Point2
 
 
 class Entity(ABC):
-	def __init__(self, *, position: Point2, velocity: Point2) -> None:
+	def __init__(
+		self,
+		*,
+		position: Point2,
+		velocity: Point2 = None,
+	) -> None:
 		self.position = position
-		self.velocity = velocity
+		if velocity is None:
+			self.velocity = Point2(0, 0)
+		else:
+			self.velocity = velocity
 
 	@property
 	def position(self) -> Point2:

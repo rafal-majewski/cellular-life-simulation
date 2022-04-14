@@ -7,7 +7,7 @@ class Cell(Entity):
 		self,
 		*,
 		position: Point2,
-		velocity: Point2,
+		velocity: Point2 = None,
 		mass: float,
 		radius: float,
 	) -> None:
