@@ -14,6 +14,6 @@ if __name__ == "__main__":
 	drawer: Drawer = Drawer(surface)
 	world: World = World()
 	world.addCell(Cell(position=Point2(0, 0), mass=1, radius=10))
-	camera: AbstractCamera = Camera(drawer)
+	camera: AbstractCamera = Camera(drawer=drawer, position=Point2(0, 0))
 	game: Game = Game(world=world, camera=camera)
 	game.start()
