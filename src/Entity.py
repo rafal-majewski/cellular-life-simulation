@@ -11,6 +11,14 @@ class Entity(ABC):
 	def position(self) -> Point2:
 		return self._position
 
+	@position.setter
+	def position(self, position: Point2) -> None:
+		self._position = position
+
 	@property
 	def velocity(self) -> Point2:
 		return self._velocity
+
+	@velocity.setter
+	def velocity(self, velocity: Point2) -> None:
+		self._velocity = velocity
