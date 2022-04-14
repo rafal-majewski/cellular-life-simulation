@@ -47,3 +47,21 @@ class Test_Point2(TestCase):
 		p1: Point2 = Point2(1, 2)
 		p2: Point2 = Point2(1, 2)
 		self.assertTrue(p1 == p2)
+
+	def test_add(self):
+		p1: Point2 = Point2(1, 2)
+		p2: Point2 = Point2(2, 3)
+		self.assertEqual(p1 + p2, Point2(3, 5))
+
+	def test_sub(self):
+		p1: Point2 = Point2(1, 2)
+		p2: Point2 = Point2(2, 3)
+		self.assertEqual(p1 - p2, Point2(-1, -1))
+
+	def test_mul_by_scalar(self):
+		p: Point2 = Point2(1, 2)
+		self.assertEqual(p * 2, Point2(2, 4))
+
+	def test_div_by_scalar(self):
+		p: Point2 = Point2(2, 4)
+		self.assertEqual(p / 2, Point2(1, 2))
