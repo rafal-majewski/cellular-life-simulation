@@ -1,4 +1,4 @@
-from src.engine.Cell import Cell
+from src.engine import Cell
 
 
 class World:

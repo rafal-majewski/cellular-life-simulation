@@ -1,11 +1,11 @@
 from abc import ABC
-from src.engine.Point2 import Point2
+from src.engine import Point2
 
 
 class Entity(ABC):
 	def __init__(self, *, position: Point2, velocity: Point2) -> None:
-		self._position = position
-		self._velocity = velocity
+		self.position = position
+		self.velocity = velocity
 
 	@property
 	def position(self) -> Point2:

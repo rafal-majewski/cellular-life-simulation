@@ -1,5 +1,5 @@
-from src.engine.Entity import Entity
-from src.engine.Point2 import Point2
+from src.engine import Entity
+from src.engine import Point2
 
 
 class Cell(Entity):
@@ -12,8 +12,8 @@ class Cell(Entity):
 		radius: float,
 	) -> None:
 		super().__init__(position=position, velocity=velocity)
-		self._mass = mass
-		self._radius = radius
+		self.mass = mass
+		self.radius = radius
 
 	@property
 	def mass(self) -> float:
