@@ -8,5 +8,6 @@ class Camera(AbstractCamera):
 		self.drawer = drawer
 
 	def display(self, world: World) -> None:
+		self.drawer.clear()
 		for cell in world.cells:
 			self.drawer.drawCell(cell)

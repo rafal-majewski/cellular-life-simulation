@@ -8,3 +8,6 @@ class Drawer:
 
 	def drawCell(self, cell: Cell) -> None:
 		pass
+
+	def clear(self) -> None:
+		self.surface.fill((255, 255, 255))
