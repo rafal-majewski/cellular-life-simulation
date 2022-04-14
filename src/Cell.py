@@ -2,7 +2,7 @@ from src.Entity import Entity
 from src.Point2 import Point2
 
 
-class Ball(Entity):
+class Cell(Entity):
 	def __init__(
 		self,
 		*,
