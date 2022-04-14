@@ -1,5 +1,5 @@
-from src.abstractcamera import AbstractCamera
-from src.engine import World
+from src.abstractcamera.AbstractCamera import AbstractCamera
+from src.engine.World import World
 
 
 class Camera(AbstractCamera):

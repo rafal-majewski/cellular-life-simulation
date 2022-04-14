@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from src.engine import World
+from src.engine.World import World
 
 
 class AbstractCamera(ABC):

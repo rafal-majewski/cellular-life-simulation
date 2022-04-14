@@ -1,6 +1,6 @@
 from unittest import TestCase
-from src.engine import Entity
-from src.engine import Point2
+from src.engine.Entity import Entity
+from src.engine.Point2 import Point2
 
 
 class Test_Entity(TestCase):

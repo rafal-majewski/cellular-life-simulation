@@ -1,10 +1,9 @@
-from src.game import Game
-from src.pygameimp import Camera
-from src.engine import World
+from src.game.Game import Game
+from src.pygameimp.Camera import Camera
+from src.engine.World import World
 
 
 if __name__ == "__main__":
-	pass
-	# world = World()
-	# camera = Camera()
-	# game = Game(world=world, camera=camera)
+	world = World()
+	camera = Camera()
+	game = Game(world=world, camera=camera)

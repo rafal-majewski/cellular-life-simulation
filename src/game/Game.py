@@ -1,11 +1,11 @@
-from src.abstractcamera import AbstractCamera
-from src.engine import World
+from src.abstractcamera.AbstractCamera import AbstractCamera
+from src.engine.World import World
 
 
 class Game:
 	def __init__(
 		self,
-		*
+		*,
 		world: World,
 		camera: AbstractCamera,
 	) -> None:
@@ -13,5 +13,4 @@ class Game:
 		self.camera = camera
 
 	def start(self) -> None:
-		pass
-		# self.camera.display(self.world)
+		self.camera.display(self.world)

@@ -1,5 +1,5 @@
 from abc import ABC
-from src.engine import Point2
+from src.engine.Point2 import Point2
 
 
 class Entity(ABC):
