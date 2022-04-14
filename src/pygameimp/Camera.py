@@ -1,7 +1,7 @@
 from src.abstractcamera.AbstractMoveableCamera import AbstractMoveableCamera
 from src.engine.World import World
 from src.pygameimp.Drawer import Drawer
-from src.engine.Point2 import Point2
+from src.utils.Point2 import Point2
 
 
 class Camera(AbstractMoveableCamera):

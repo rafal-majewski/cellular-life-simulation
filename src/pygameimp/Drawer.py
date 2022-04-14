@@ -2,7 +2,7 @@ from src.engine.Cell import Cell
 from pygame.surface import Surface
 from src.abstractcamera.AbstractMoveableCamera import AbstractMoveableCamera
 import pygame
-from src.engine.Point2 import Point2
+from src.utils.Point2 import Point2
 
 
 class Drawer:

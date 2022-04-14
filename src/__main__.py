@@ -5,7 +5,7 @@ from src.abstractcamera.AbstractCamera import AbstractCamera
 from src.engine.World import World
 from src.pygameimp.Drawer import Drawer
 from src.engine.Cell import Cell
-from src.engine.Point2 import Point2
+from src.utils.Point2 import Point2
 
 
 if __name__ == "__main__":
