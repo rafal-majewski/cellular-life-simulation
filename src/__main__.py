@@ -21,6 +21,10 @@ if __name__ == "__main__":
 					random.random() * 800 - 400,
 					random.random() * 600 - 300
 				),
+				velocity=Point2(
+					random.random() * 80 - 40,
+					random.random() * 80 - 40
+				),
 				mass=1,
 				radius=(random.random()) ** 0.2 * (random.random()) * 20
 			)
