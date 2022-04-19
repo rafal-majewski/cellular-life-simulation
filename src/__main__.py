@@ -14,7 +14,7 @@ if __name__ == "__main__":
 	surface: pygame.surface.Surface = pygame.display.set_mode((800, 600))
 	drawer: Drawer = Drawer(surface)
 	world: World = World()
-	for i in range(0, 1000):
+	for i in range(0, 100):
 		world.addCell(
 			Cell(
 				position=Point2(
@@ -22,8 +22,8 @@ if __name__ == "__main__":
 					random.random() * 600 - 300
 				),
 				velocity=Point2(
-					random.random() * 80 - 40,
-					random.random() * 80 - 40
+					800,
+					random.random() * 0
 				),
 				mass=1,
 				radius=(random.random()) ** 0.2 * (random.random()) * 20

@@ -1,4 +1,5 @@
-from abc import ABC
+from abc import ABC, abstractproperty
+from src.engine.BoundingBox2 import BoundingBox2
 from src.utils.Point2 import Point2
 
 
@@ -30,3 +31,7 @@ class Entity(ABC):
 	@velocity.setter
 	def velocity(self, velocity: Point2) -> None:
 		self._velocity = velocity
+
+	@abstractproperty
+	def boundingBox(self) -> BoundingBox2:
+		pass

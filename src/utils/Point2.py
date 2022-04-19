@@ -1,5 +1,6 @@
 from __future__ import annotations
 from typing import Any
+from src.utils.Dim2 import Dim2
 
 
 class Point2:
@@ -14,6 +15,10 @@ class Point2:
 	@property
 	def y(self) -> float:
 		return self._y
+
+	@staticmethod
+	def fromDim2(dim: Dim2) -> Point2:
+		return Point2(dim.width, dim.height)
 
 	def __str__(self) -> str:
 		return f"Point2({self.x}, {self.y})"
@@ -37,3 +42,10 @@ class Point2:
 
 	def __truediv__(self, scalar: float) -> Point2:
 		return Point2(self.x / scalar, self.y / scalar)
+
+	def multiplyComponents(self, other: Point2) -> Point2:
+		return Point2(self.x * other.x, self.y * other.y)
+
+	@property
+	def magnitude(self) -> float:
+		return (self.x ** 2 + self.y ** 2) ** 0.5

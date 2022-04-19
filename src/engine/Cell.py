@@ -1,5 +1,7 @@
 from src.engine.Entity import Entity
 from src.utils.Point2 import Point2
+from src.utils.Dim2 import Dim2
+from src.engine.BoundingBox2 import BoundingBox2
 
 
 class Cell(Entity):
@@ -30,3 +32,10 @@ class Cell(Entity):
 	@radius.setter
 	def radius(self, radius: float) -> None:
 		self._radius = radius
+
+	@property
+	def boundingBox(self) -> BoundingBox2:
+		return BoundingBox2(
+			center=self.position,
+			size=Dim2(self.radius * 2, self.radius * 2),
+		)
