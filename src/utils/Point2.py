@@ -40,7 +40,13 @@ class Point2:
 	def __mul__(self, scalar: float) -> Point2:
 		return Point2(self.x * scalar, self.y * scalar)
 
+	def __rmul__(self, scalar: float) -> Point2:
+		return Point2(self.x * scalar, self.y * scalar)
+
 	def __truediv__(self, scalar: float) -> Point2:
+		return Point2(self.x / scalar, self.y / scalar)
+
+	def __rtruediv__(self, scalar: float) -> Point2:
 		return Point2(self.x / scalar, self.y / scalar)
 
 	def multiplyComponents(self, other: Point2) -> Point2:
@@ -49,3 +55,9 @@ class Point2:
 	@property
 	def magnitude(self) -> float:
 		return (self.x ** 2 + self.y ** 2) ** 0.5
+
+	def dotProduct(self, other: Point2) -> float:
+		return self.x * other.x + self.y * other.y
+
+	def normalize(self) -> Point2:
+		return self / self.magnitude
