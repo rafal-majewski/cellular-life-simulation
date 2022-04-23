@@ -10,11 +10,11 @@ class Entity(ABC):
 		position: Point2,
 		velocity: Point2 = None,
 	) -> None:
-		self.position = position
+		self.position: Point2 = position
 		if velocity is None:
-			self.velocity = Point2(0, 0)
+			self.velocity: Point2 = Point2(0, 0)
 		else:
-			self.velocity = velocity
+			self.velocity: Point2 = velocity
 
 	@property
 	def position(self) -> Point2:

@@ -14,8 +14,8 @@ class Cell(Entity):
 		radius: float,
 	) -> None:
 		super().__init__(position=position, velocity=velocity)
-		self.mass = mass
-		self.radius = radius
+		self.mass: float = mass
+		self.radius: float = radius
 
 	@property
 	def mass(self) -> float:
