@@ -1,10 +1,9 @@
-from src.engine.Entity import Entity
 from src.utils.Point2 import Point2
 from src.utils.Dim2 import Dim2
 from src.engine.BoundingBox2 import BoundingBox2
 
 
-class Cell(Entity):
+class Cell:
 	def __init__(
 		self,
 		*,
@@ -13,9 +12,26 @@ class Cell(Entity):
 		mass: float,
 		radius: float,
 	) -> None:
-		super().__init__(position=position, velocity=velocity)
+		self.position: Point2 = position
+		self.velocity: Point2 = Point2(0, 0) if velocity is None else velocity
 		self.mass: float = mass
 		self.radius: float = radius
+
+	@property
+	def position(self) -> Point2:
+		return self._position
+
+	@position.setter
+	def position(self, position: Point2) -> None:
+		self._position = position
+
+	@property
+	def velocity(self) -> Point2:
+		return self._velocity
+
+	@velocity.setter
+	def velocity(self, velocity: Point2) -> None:
+		self._velocity = velocity
 
 	@property
 	def mass(self) -> float:
@@ -39,3 +55,6 @@ class Cell(Entity):
 			center=self.position,
 			size=Dim2(self.radius * 2, self.radius * 2),
 		)
+
+	def __str__(self) -> str:
+		return f"Cell(position={self.position}, velocity={self.velocity}, mass={self.mass}, radius={self.radius})"

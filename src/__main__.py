@@ -7,6 +7,9 @@ from src.pygameimp.Drawer import Drawer
 from src.engine.Cell import Cell
 from src.utils.Point2 import Point2
 from src.engine.Joint import Joint
+from src.engine.physics.CollisionResolver import CollisionResolver
+from src.engine.physics.JointResolver import JointResolver
+from src.engine.physics.MovementResolver import MovementResolver
 import random
 import math
 
@@ -15,7 +18,11 @@ if __name__ == "__main__":
 	pygame.init()
 	surface: pygame.surface.Surface = pygame.display.set_mode((800, 600))
 	drawer: Drawer = Drawer(surface)
-	world: World = World()
+	world: World = World(
+		collisionResolver=CollisionResolver(),
+		jointResolver=JointResolver(),
+		movementResolver=MovementResolver(),
+	)
 
 	# for i in range(30):
 	# 	radius = 14
@@ -33,16 +40,18 @@ if __name__ == "__main__":
 	# 	)
 	# 	world.addCell(wall)
 
-	for i in range(30):
+	for i in range(20):
 		headRadius = random.random() * 14 + 8
 		head = Cell(
 			position=Point2(
-				random.random() * 800 - 400,
-				random.random() * 600 - 300
+				random.random() * 600 - 300,
+				random.random() * 400 - 200
 			),
 			velocity=Point2(
-				random.random() * 11 - 5,
-				random.random() * 11 - 5
+				# random.random() * 30 - 15,
+				# random.random() * 30 - 15
+				30,
+				-30
 			),
 			mass=headRadius ** 2 * math.pi,
 			radius=headRadius
@@ -60,8 +69,9 @@ if __name__ == "__main__":
 					cellBefore.position.y + math.sin(angle) * (cellBefore.radius + radius)
 				),
 				velocity=Point2(
-				random.random() * 11 - 5,
-				random.random() * 11 - 5
+					# random.random() * 30 - 15,
+					# random.random() * 30 - 15
+					30, 30
 				),
 				mass=radius**2 * math.pi,
 				radius=radius
@@ -70,7 +80,7 @@ if __name__ == "__main__":
 			joint: Joint = Joint(
 				cell1=cellBefore,
 				cell2=cell,
-				stiffness=random.random() * 0.1 + 0.1
+				stiffness=0.9
 			)
 			world.addJoint(joint)
 			cellBefore = cell

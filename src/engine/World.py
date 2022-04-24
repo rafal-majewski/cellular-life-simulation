@@ -1,84 +1,79 @@
 from src.engine.Cell import Cell
 from src.utils.Point2 import Point2
 from src.engine.Joint import Joint
+from src.engine.physics.CollisionResolver import CollisionResolver
+from src.engine.physics.JointResolver import JointResolver
+from src.engine.physics.CellView import CellView
+from src.engine.physics.JointView import JointView
+from src.engine.physics.MovementResolver import MovementResolver
 
 
 class World:
-	def __init__(self) -> None:
-		self.cells = set[Cell]()
-		self.joints = set[Joint]()
+	def __init__(
+		self,
+		*,
+		collisionResolver: CollisionResolver,
+		jointResolver: JointResolver,
+		movementResolver: MovementResolver,
+	) -> None:
+		self._cells: set[Cell] = set[Cell]()
+		self._joints: set[Joint] = set[Joint]()
+		self.collisionResolver: CollisionResolver = collisionResolver
+		self.jointResolver: JointResolver = jointResolver
+		self.moveResolver: MovementResolver = movementResolver
 
 	def addCell(self, cell: Cell) -> None:
-		self.cells.add(cell)
+		self._cells.add(cell)
 
 	def addJoint(self, joint: Joint) -> None:
-		self.joints.add(joint)
+		self._joints.add(joint)
 
-	def testCellCellCollision(self, cell1: Cell, cell2: Cell) -> bool:
-		return \
-			(cell1.position - cell2.position).magnitude \
-			< cell1.radius + cell2.radius
+	@property
+	def cells(self) -> frozenset[Cell]:
+		return frozenset(self._cells)
 
-	def cellCellCollision(self, cell1: Cell, cell2: Cell) -> None:
-		# print("cellCellCollision")
-		# https://en.wikipedia.org/wiki/Elastic_collision
-		
-		
-		# check if the cells should bounce
-		if (cell1.velocity - cell2.velocity).dotProduct(cell1.position - cell2.position) >= 0:
-			return
+	@property
+	def joints(self) -> frozenset[Joint]:
+		return frozenset(self._joints)
 
-		distance: float = (cell1.position - cell2.position).magnitude
+	def applyCellView(self, cellView: CellView) -> None:
+		cell: Cell = cellView._cell
+		cell.position = cellView.position
+		cell.velocity = cellView.velocity
 
-		newVelocity1: Point2 = \
-			cell1.velocity \
-			- 2 * cell2.mass / (cell1.mass + cell2.mass) \
-			* ((cell1.velocity - cell2.velocity).dotProduct(cell1.position - cell2.position)) \
-			/ (distance ** 2) \
-			* (cell1.position - cell2.position)
-		newVelocity2: Point2 = \
-			cell2.velocity \
-			- 2 * cell1.mass / (cell1.mass + cell2.mass) \
-			* ((cell2.velocity - cell1.velocity).dotProduct(cell2.position - cell1.position)) \
-			/ (distance ** 2) \
-			* (cell2.position - cell1.position)
 
-		cell1.velocity = newVelocity1
-		cell2.velocity = newVelocity2
+	def applyJointView(self, jointView: JointView) -> None:
+		cellView1: CellView = jointView.cell1
+		cellView2: CellView = jointView.cell2
+		self.applyCellView(cellView1)
+		self.applyCellView(cellView2)
 
-	def resolveCellCellCollision(self, cell1: Cell, cell2: Cell) -> None:
-		if not self.testCellCellCollision(cell1, cell2):
-			return
-		self.cellCellCollision(cell1, cell2)
+	def resolveCollisions(self, deltaTime: float) -> None:
+		cellsList: list[Cell] = list(self.cells)
+		for i1 in range(len(cellsList)):
+			cell1: Cell = cellsList[i1]
+			for i2 in range(i1 + 1, len(cellsList)):
+				cell2: Cell = cellsList[i2]
+				cellView1: CellView = CellView(cell1)
+				cellView2: CellView = CellView(cell2)
+				self.collisionResolver.resolve(cellView1, cellView2)
+				self.applyCellView(cellView1)
+				self.applyCellView(cellView2)
 
-	def resolveCollisions(self) -> None:
-		for cell1 in self.cells:
-			for cell2 in self.cells:
-				if cell1 == cell2:
-					continue
-				self.resolveCellCellCollision(cell1, cell2)
-
-	def resolveJoint(self, joint: Joint) -> None:
-		jointDistance: float = joint.cell1.radius + joint.cell2.radius
-		
-		dir1: Point2 = (joint.cell2.position - joint.cell1.position).normalize()
-		dir2: Point2 = (joint.cell1.position - joint.cell2.position).normalize()
-		missingDist: float = (joint.cell2.position - joint.cell1.position).magnitude - jointDistance
-		mag1: float = missingDist * joint.cell1.mass / (joint.cell1.mass + joint.cell2.mass)
-		mag2: float = missingDist * joint.cell2.mass / (joint.cell1.mass + joint.cell2.mass)
-		joint.cell1.velocity += mag1 * dir1 * joint.stiffness
-		joint.cell2.velocity += mag2 * dir2 * joint.stiffness
-
-	def resolveJoints(self) -> None:
+	def resolveJoints(self, deltaTime: float) -> None:
 		for joint in self.joints:
-			self.resolveJoint(joint)
+			jointView: JointView = JointView(joint)
+			self.jointResolver.resolve(jointView)
+			self.applyJointView(jointView)
+
+	def resolveMovements(self, deltaTime: float) -> None:
+		for cell in self.cells:
+			cellView: CellView = CellView(cell)
+			self.moveResolver.resolve(cellView, deltaTime)
+			self.applyCellView(cellView)
 
 	def tick(self, deltaTime: float) -> None:
-		self.resolveCollisions()
-		for cell in self.cells:
-			cell.position += cell.velocity * deltaTime
-		self.resolveJoints()
-		energy: float = 0
-		for cell in self.cells:
-			energy += cell.mass * cell.velocity.magnitude ** 2 / 2
-		print("energia układu:", energy)
+		self.resolveCollisions(deltaTime)
+		self.resolveMovements(deltaTime)
+		self.resolveJoints(deltaTime)
+

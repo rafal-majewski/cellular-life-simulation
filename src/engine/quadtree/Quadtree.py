@@ -1,6 +1,3 @@
-from src.engine.Entity import Entity
-
-
 class Quadtree:
 	def __init__(self, *, minChunkSize: float, maxChunkSize: float) -> None:
 		self._minChunkSize: float = minChunkSize
@@ -13,6 +10,3 @@ class Quadtree:
 	@property
 	def maxChunkSize(self) -> float:
 		return self._maxChunkSize
-
-	def addEntity(self, entity: Entity) -> None:
-		pass
