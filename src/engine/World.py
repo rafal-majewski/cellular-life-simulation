@@ -4,6 +4,7 @@ from src.engine.physics.CollisionResolver import CollisionResolver
 from src.engine.physics.JointResolver import JointResolver
 from src.engine.physics.CellView import CellView
 from src.engine.physics.JointView import JointView
+from src.utils.Dim2 import Dim2
 from src.engine.physics.MovementResolver import MovementResolver
 
 
@@ -14,12 +15,14 @@ class World:
 		collisionResolver: CollisionResolver,
 		jointResolver: JointResolver,
 		movementResolver: MovementResolver,
+		size: Dim2,
 	) -> None:
 		self._cells: set[Cell] = set[Cell]()
 		self._joints: set[Joint] = set[Joint]()
 		self.collisionResolver: CollisionResolver = collisionResolver
 		self.jointResolver: JointResolver = jointResolver
 		self.moveResolver: MovementResolver = movementResolver
+		self.size: Dim2 = size
 
 	def addCell(self, cell: Cell) -> None:
 		self._cells.add(cell)

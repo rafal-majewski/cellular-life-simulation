@@ -1,7 +1,11 @@
+import random
 from typing import Optional
 from src.abstractcamera.AbstractCamera import AbstractCamera
 from src.engine.World import World
+from src.engine.Air import Air
 import time
+
+from src.utils.Point2 import Point2
 
 
 class Game:
@@ -39,7 +43,27 @@ class Game:
 		self.display()
 		time.sleep(max(0, self._frameTime - (time.time() - self._lastTickTimestamp)))
 
+	def generateRandomPosition(self) -> Point2:
+		return Point2.fromDim2(self.world.size / 2) \
+			.multiplyComponents(
+				Point2(random.uniform(-1, 1), random.uniform(-1, 1))
+			)
+
+	def createAir(self) -> Air:
+		air: Air = Air(
+			position=self.generateRandomPosition(),
+			velocity=Point2(random.uniform(-10, 10), random.uniform(-10, 10)),
+		)
+		return air
+
+
+	def spawnAir(self) -> None:
+		air: Air = self.createAir()
+		self.world.addCell(air)
+
 	def start(self) -> None:
+		for i in range(200):
+			self.spawnAir()
 		self.display()
 		while True:
 			self.tick()
