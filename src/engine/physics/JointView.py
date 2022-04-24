@@ -28,4 +28,10 @@ class JointView:
 		return self._joint.stiffness
 
 	def __str__(self) -> str:
-		return f"JointView(joint={self._joint}, cell1={self.cell1}, cell2={self.cell2})"
+		return (
+			f"JointView("
+			f"joint={self._joint}, "
+			f"cell1={self.cell1}, "
+			f"cell2={self.cell2}"
+			f")"
+		)

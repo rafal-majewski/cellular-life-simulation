@@ -25,12 +25,10 @@ class Game:
 	def fps(self, fps: float) -> None:
 		self._fps = fps
 		self._frameTime = 1 / fps
-	
 
 	def display(self) -> None:
-		
 		self.camera.display(self.world)
-	
+
 	def tick(self) -> None:
 		currentTickTimestamp: float = time.time()
 		deltaTime: float = \

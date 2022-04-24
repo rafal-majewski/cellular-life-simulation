@@ -17,16 +17,20 @@ class BoundingBox2:
 
 	@property
 	def topLeft(self) -> Point2:
-		return self._center + Point2.fromDim2(self._size).multiplyComponents(Point2(-0.5, -0.5))
+		return self._center \
+			+ Point2.fromDim2(self._size).multiplyComponents(Point2(-0.5, -0.5))
 
 	@property
 	def bottomRight(self) -> Point2:
-		return self._center + Point2.fromDim2(self._size).multiplyComponents(Point2(0.5, 0.5))
+		return self._center \
+			+ Point2.fromDim2(self._size).multiplyComponents(Point2(0.5, 0.5))
 
 	@property
 	def topRight(self) -> Point2:
-		return self._center + Point2.fromDim2(self._size).multiplyComponents(Point2(0.5, -0.5))
+		return self._center \
+			+ Point2.fromDim2(self._size).multiplyComponents(Point2(0.5, -0.5))
 
 	@property
 	def bottomLeft(self) -> Point2:
-		return self._center + Point2.fromDim2(self._size).multiplyComponents(Point2(-0.5, 0.5))
+		return self._center \
+			+ Point2.fromDim2(self._size).multiplyComponents(Point2(-0.5, 0.5))

@@ -11,10 +11,10 @@ class CollisionResolver:
 	def collision(self, cellView1: CellView, cellView2: CellView) -> None:
 		# print("cellCellCollision")
 		# https://en.wikipedia.org/wiki/Elastic_collision
-		
-		
+
 		# check if the cells should bounce
-		if (cellView1.velocity - cellView2.velocity).dotProduct(cellView1.position - cellView2.position) >= 0:
+		if (cellView1.velocity - cellView2.velocity) \
+			.dotProduct(cellView1.position - cellView2.position) >= 0:
 			return
 
 		distance: float = (cellView1.position - cellView2.position).magnitude
@@ -22,13 +22,19 @@ class CollisionResolver:
 		newVelocity1: Point2 = \
 			cellView1.velocity \
 			- 2 * cellView2.mass / (cellView1.mass + cellView2.mass) \
-			* ((cellView1.velocity - cellView2.velocity).dotProduct(cellView1.position - cellView2.position)) \
+			* (
+				(cellView1.velocity - cellView2.velocity)
+				.dotProduct(cellView1.position - cellView2.position)
+			) \
 			/ (distance ** 2) \
 			* (cellView1.position - cellView2.position)
 		newVelocity2: Point2 = \
 			cellView2.velocity \
 			- 2 * cellView1.mass / (cellView1.mass + cellView2.mass) \
-			* ((cellView2.velocity - cellView1.velocity).dotProduct(cellView2.position - cellView1.position)) \
+			* (
+				(cellView2.velocity - cellView1.velocity)
+				.dotProduct(cellView2.position - cellView1.position)
+			) \
 			/ (distance ** 2) \
 			* (cellView2.position - cellView1.position)
 

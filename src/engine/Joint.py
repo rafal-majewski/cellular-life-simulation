@@ -18,4 +18,10 @@ class Joint:
 		return self.cell1.radius + self.cell2.radius
 
 	def __str__(self) -> str:
-		return f"Joint(cell1={self.cell1}, cell2={self.cell2}, stiffness={self.stiffness})"
+		return (
+			f"Joint("
+			f"cell1={self.cell1}, "
+			f"cell2={self.cell2}, "
+			f"stiffness={self.stiffness}"
+			f")"
+		)

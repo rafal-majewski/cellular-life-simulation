@@ -3,7 +3,6 @@
 
 from src.engine.Cell import Cell
 from src.utils.Point2 import Point2
-from src.utils.Dim2 import Dim2
 from src.engine.BoundingBox2 import BoundingBox2
 
 
@@ -42,4 +41,10 @@ class CellView:
 		return self._cell.boundingBox
 
 	def __str__(self) -> str:
-		return f"CellView(cell={self._cell}, position={self.position}, velocity={self.velocity})"
+		return (
+			f"CellView("
+			f"cell={self._cell}, "
+			f"position={self.position}, "
+			f"velocity={self.velocity}"
+			f")"
+		)

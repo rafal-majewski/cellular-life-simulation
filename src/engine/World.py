@@ -1,5 +1,4 @@
 from src.engine.Cell import Cell
-from src.utils.Point2 import Point2
 from src.engine.Joint import Joint
 from src.engine.physics.CollisionResolver import CollisionResolver
 from src.engine.physics.JointResolver import JointResolver
@@ -41,7 +40,6 @@ class World:
 		cell.position = cellView.position
 		cell.velocity = cellView.velocity
 
-
 	def applyJointView(self, jointView: JointView) -> None:
 		cellView1: CellView = jointView.cell1
 		cellView2: CellView = jointView.cell2
@@ -76,4 +74,3 @@ class World:
 		self.resolveCollisions(deltaTime)
 		self.resolveMovements(deltaTime)
 		self.resolveJoints(deltaTime)
-

@@ -57,4 +57,11 @@ class Cell:
 		)
 
 	def __str__(self) -> str:
-		return f"Cell(position={self.position}, velocity={self.velocity}, mass={self.mass}, radius={self.radius})"
+		return (
+			f"Cell("
+			f"position={self.position}, "
+			f"velocity={self.velocity}, "
+			f"mass={self.mass}, "
+			f"radius={self.radius}"
+			f")"
+		)
