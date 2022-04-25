@@ -4,7 +4,7 @@ from src.engine.physics.CollisionResolver import CollisionResolver
 from src.engine.physics.JointResolver import JointResolver
 from src.engine.physics.CellView import CellView
 from src.engine.physics.JointView import JointView
-from src.utils.Dim2 import Dim2
+from src.utils.dim2.Dim2 import Dim2
 from src.engine.physics.MovementResolver import MovementResolver
 
 

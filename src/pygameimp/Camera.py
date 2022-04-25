@@ -1,11 +1,11 @@
 from src.abstractcamera.AbstractMoveableCamera import AbstractMoveableCamera
 from src.engine.World import World
 from src.pygameimp.Drawer import Drawer
-from src.utils.Point2 import Point2
+from src.utils.point2.FloatPoint2 import FloatPoint2
 
 
 class Camera(AbstractMoveableCamera):
-	def __init__(self, *, drawer: Drawer, position: Point2) -> None:
+	def __init__(self, *, drawer: Drawer, position: FloatPoint2) -> None:
 		super().__init__(position=position)
 		self.drawer = drawer
 

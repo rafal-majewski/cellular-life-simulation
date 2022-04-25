@@ -1,5 +1,5 @@
 from src.engine.physics.CellView import CellView
-from src.utils.Point2 import Point2
+from src.utils.point2.FloatPoint2 import FloatPoint2
 
 
 class CollisionResolver:
@@ -19,7 +19,7 @@ class CollisionResolver:
 
 		distance: float = (cellView1.position - cellView2.position).magnitude
 
-		newVelocity1: Point2 = \
+		newVelocity1: FloatPoint2 = \
 			cellView1.velocity \
 			- 2 * cellView2.mass / (cellView1.mass + cellView2.mass) \
 			* (
@@ -28,7 +28,7 @@ class CollisionResolver:
 			) \
 			/ (distance ** 2) \
 			* (cellView1.position - cellView2.position)
-		newVelocity2: Point2 = \
+		newVelocity2: FloatPoint2 = \
 			cellView2.velocity \
 			- 2 * cellView1.mass / (cellView1.mass + cellView2.mass) \
 			* (

@@ -2,7 +2,7 @@ from src.engine.Cell import Cell
 from pygame.surface import Surface
 from src.abstractcamera.AbstractMoveableCamera import AbstractMoveableCamera
 import pygame
-from src.utils.Point2 import Point2
+from src.utils.point2.FloatPoint2 import FloatPoint2
 
 
 class Drawer:
@@ -10,11 +10,11 @@ class Drawer:
 		self.surface = surface
 
 	@property
-	def surfaceCenterPosition(self) -> Point2:
-		return Point2(self.surface.get_width() / 2, self.surface.get_height() / 2)
+	def surfaceCenterPosition(self) -> FloatPoint2:
+		return FloatPoint2(self.surface.get_width() / 2, self.surface.get_height() / 2)
 
 	def drawCell(self, cell: Cell, camera: AbstractMoveableCamera) -> None:
-		positionOnScreen: Point2 = cell.position \
+		positionOnScreen: FloatPoint2 = cell.position \
 			- camera.position \
 			+ self.surfaceCenterPosition
 		pygame.draw.circle(

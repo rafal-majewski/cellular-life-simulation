@@ -1,13 +1,13 @@
 from src.engine.Cell import Cell
-from src.utils.Point2 import Point2
+from src.utils.point2.FloatPoint2 import FloatPoint2
 
 
 class Air(Cell):
 	def __init__(
 		self,
 		*,
-		position: Point2,
-		velocity: Point2 = None,
+		position: FloatPoint2,
+		velocity: FloatPoint2 = None,
 	) -> None:
 		super().__init__(
 			position=position,

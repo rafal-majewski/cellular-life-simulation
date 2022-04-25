@@ -1,12 +1,12 @@
 from src.engine.physics.JointView import JointView
-from src.utils.Point2 import Point2
+from src.utils.point2.FloatPoint2 import FloatPoint2
 
 
 class JointResolver:
 	def resolve(self, jointView: JointView) -> None:
-		dir1: Point2 = \
+		dir1: FloatPoint2 = \
 			(jointView.cell2.position - jointView.cell1.position).normalize()
-		dir2: Point2 = \
+		dir2: FloatPoint2 = \
 			(jointView.cell1.position - jointView.cell2.position).normalize()
 		missingDist: float = \
 			(jointView.cell2.position - jointView.cell1.position).magnitude \

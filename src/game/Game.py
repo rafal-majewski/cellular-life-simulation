@@ -5,7 +5,7 @@ from src.engine.World import World
 from src.engine.Air import Air
 import time
 
-from src.utils.Point2 import Point2
+from src.utils.point2.FloatPoint2 import FloatPoint2
 
 
 class Game:
@@ -43,19 +43,18 @@ class Game:
 		self.display()
 		time.sleep(max(0, self._frameTime - (time.time() - self._lastTickTimestamp)))
 
-	def generateRandomPosition(self) -> Point2:
-		return Point2.fromDim2(self.world.size / 2) \
+	def generateRandomPosition(self) -> FloatPoint2:
+		return FloatPoint2.fromDim2(self.world.size / 2) \
 			.multiplyComponents(
-				Point2(random.uniform(-1, 1), random.uniform(-1, 1))
-			)
+				FloatPoint2(random.uniform(-1, 1), random.uniform(-1, 1))
+		)
 
 	def createAir(self) -> Air:
 		air: Air = Air(
 			position=self.generateRandomPosition(),
-			velocity=Point2(random.uniform(-10, 10), random.uniform(-10, 10)),
+			velocity=FloatPoint2(random.uniform(-10, 10), random.uniform(-10, 10)),
 		)
 		return air
-
 
 	def spawnAir(self) -> None:
 		air: Air = self.createAir()

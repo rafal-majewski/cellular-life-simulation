@@ -2,30 +2,30 @@
 # cell's position and velocity
 
 from src.engine.Cell import Cell
-from src.utils.Point2 import Point2
+from src.utils.point2.FloatPoint2 import FloatPoint2
 from src.engine.BoundingBox2 import BoundingBox2
 
 
 class CellView:
 	def __init__(self, cell: Cell) -> None:
 		self._cell: Cell = cell
-		self._position: Point2 = cell.position
-		self._velocity: Point2 = cell.velocity
+		self._position: FloatPoint2 = cell.position
+		self._velocity: FloatPoint2 = cell.velocity
 
 	@property
-	def position(self) -> Point2:
+	def position(self) -> FloatPoint2:
 		return self._position
 
 	@position.setter
-	def position(self, position: Point2) -> None:
+	def position(self, position: FloatPoint2) -> None:
 		self._position = position
 
 	@property
-	def velocity(self) -> Point2:
+	def velocity(self) -> FloatPoint2:
 		return self._velocity
 
 	@velocity.setter
-	def velocity(self, velocity: Point2) -> None:
+	def velocity(self, velocity: FloatPoint2) -> None:
 		self._velocity = velocity
 
 	@property
