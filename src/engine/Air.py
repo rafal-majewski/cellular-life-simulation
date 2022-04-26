@@ -14,7 +14,7 @@ class Air(Cell):
 			position=position,
 			velocity=velocity,
 			mass=0.1,
-			radius=10,
+			radius=9,
 			color=Color(r=0, g=0, b=255),
 		)
 

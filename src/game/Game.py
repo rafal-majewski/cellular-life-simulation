@@ -52,7 +52,7 @@ class Game:
 	def createAir(self) -> Air:
 		air: Air = Air(
 			position=self.generateRandomPosition(),
-			velocity=FloatPoint2(random.uniform(-10, 10), random.uniform(-10, 10)),
+			velocity=FloatPoint2(random.uniform(-50, 50), random.uniform(-50, 50)),
 		)
 		return air
 
