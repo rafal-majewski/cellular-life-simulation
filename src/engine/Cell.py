@@ -1,6 +1,5 @@
 from src.utils.dim2.FloatDim2 import FloatDim2
 from src.utils.point2.FloatPoint2 import FloatPoint2
-from src.utils.dim2.Dim2 import Dim2
 from src.engine.BoundingBox2 import BoundingBox2
 
 
@@ -14,7 +13,8 @@ class Cell:
 		radius: float,
 	) -> None:
 		self.position: FloatPoint2 = position
-		self.velocity: FloatPoint2 = FloatPoint2(0, 0) if velocity is None else velocity
+		self.velocity: FloatPoint2 = \
+			FloatPoint2(0, 0) if velocity is None else velocity
 		self.mass: float = mass
 		self.radius: float = radius
 

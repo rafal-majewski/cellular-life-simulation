@@ -18,19 +18,23 @@ class BoundingBox2:
 	@property
 	def topLeft(self) -> FloatPoint2:
 		return self._center \
-			+ FloatPoint2.fromDim2(self._size).multiplyComponents(FloatPoint2(-0.5, -0.5))
+			+ FloatPoint2.fromDim2(self._size) \
+			.multiplyComponents(FloatPoint2(-0.5, -0.5))
 
 	@property
 	def bottomRight(self) -> FloatPoint2:
 		return self._center \
-			+ FloatPoint2.fromDim2(self._size).multiplyComponents(FloatPoint2(0.5, 0.5))
+			+ FloatPoint2.fromDim2(self._size) \
+			.multiplyComponents(FloatPoint2(0.5, 0.5))
 
 	@property
 	def topRight(self) -> FloatPoint2:
 		return self._center \
-			+ FloatPoint2.fromDim2(self._size).multiplyComponents(FloatPoint2(0.5, -0.5))
+			+ FloatPoint2.fromDim2(self._size) \
+			.multiplyComponents(FloatPoint2(0.5, -0.5))
 
 	@property
 	def bottomLeft(self) -> FloatPoint2:
 		return self._center \
-			+ FloatPoint2.fromDim2(self._size).multiplyComponents(FloatPoint2(-0.5, 0.5))
+			+ FloatPoint2.fromDim2(self._size) \
+			.multiplyComponents(FloatPoint2(-0.5, 0.5))
