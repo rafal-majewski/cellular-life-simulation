@@ -14,7 +14,7 @@ class Camera(AbstractMoveableCamera):
 		self.drawer.clear()
 		for cell in world.cells:
 			self.drawer.drawCell(cell, self)
-		quadtree: Quadtree = world.quadtree
+		# quadtree: Quadtree = world.quadtree
 		# for y in quadtree._mainChunks:
 		# 	for x in quadtree._mainChunks[y]:
 		# 		self.drawer.drawChunk(quadtree._mainChunks[y][x], self)
