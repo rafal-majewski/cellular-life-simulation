@@ -11,7 +11,10 @@ class Drawer:
 
 	@property
 	def surfaceCenterPosition(self) -> FloatPoint2:
-		return FloatPoint2(self.surface.get_width() / 2, self.surface.get_height() / 2)
+		return FloatPoint2(
+			self.surface.get_width() / 2,
+			self.surface.get_height() / 2,
+		)
 
 	def drawCell(self, cell: Cell, camera: AbstractMoveableCamera) -> None:
 		positionOnScreen: FloatPoint2 = cell.position \
