@@ -61,7 +61,7 @@ class Game:
 		self.world.addCell(air)
 
 	def start(self) -> None:
-		for i in range(200):
+		for i in range(280):
 			self.spawnAir()
 		self.display()
 		while True:

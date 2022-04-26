@@ -6,6 +6,8 @@ from src.engine.physics.CellView import CellView
 from src.engine.physics.JointView import JointView
 from src.utils.dim2.Dim2 import Dim2
 from src.engine.physics.MovementResolver import MovementResolver
+from src.engine.quadtree.Quadtree import Quadtree
+from src.utils.dim2.FloatDim2 import FloatDim2
 
 
 class World:
@@ -22,10 +24,15 @@ class World:
 		self.collisionResolver: CollisionResolver = collisionResolver
 		self.jointResolver: JointResolver = jointResolver
 		self.moveResolver: MovementResolver = movementResolver
+		self.quadtree = Quadtree(
+			minChunkSize=FloatDim2(3, 3),
+			maxChunkSize=FloatDim2(30, 30)
+		)
 		self.size: Dim2 = size
 
 	def addCell(self, cell: Cell) -> None:
 		self._cells.add(cell)
+		self.quadtree.addCell(cell)
 
 	def addJoint(self, joint: Joint) -> None:
 		self._joints.add(joint)
@@ -40,8 +47,10 @@ class World:
 
 	def applyCellView(self, cellView: CellView) -> None:
 		cell: Cell = cellView._cell
+		self.quadtree.removeCell(cell)
 		cell.position = cellView.position
 		cell.velocity = cellView.velocity
+		self.quadtree.addCell(cell)
 
 	def applyJointView(self, jointView: JointView) -> None:
 		cellView1: CellView = jointView.cell1
@@ -53,8 +62,9 @@ class World:
 		cellsList: list[Cell] = list(self.cells)
 		for i1 in range(len(cellsList)):
 			cell1: Cell = cellsList[i1]
-			for i2 in range(i1 + 1, len(cellsList)):
-				cell2: Cell = cellsList[i2]
+			possibleCollisions: set[Cell] = self.quadtree.getNeighbors(cell1.boundingBox)
+			possibleCollisions.remove(cell1)
+			for cell2 in possibleCollisions:
 				cellView1: CellView = CellView(cell1)
 				cellView2: CellView = CellView(cell2)
 				self.collisionResolver.resolve(cellView1, cellView2)

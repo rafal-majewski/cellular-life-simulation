@@ -3,6 +3,7 @@ from pygame.surface import Surface
 from src.abstractcamera.AbstractMoveableCamera import AbstractMoveableCamera
 import pygame
 from src.utils.point2.FloatPoint2 import FloatPoint2
+from src.engine.quadtree.Chunk import Chunk
 
 
 class Drawer:
@@ -16,10 +17,14 @@ class Drawer:
 			self.surface.get_height() / 2,
 		)
 
-	def drawCell(self, cell: Cell, camera: AbstractMoveableCamera) -> None:
-		positionOnScreen: FloatPoint2 = cell.position \
+	def _translate(self, point: FloatPoint2, camera: AbstractMoveableCamera) -> FloatPoint2:
+		return point \
 			- camera.position \
 			+ self.surfaceCenterPosition
+
+	def drawCell(self, cell: Cell, camera: AbstractMoveableCamera) -> None:
+		positionOnScreen: FloatPoint2 = self._translate(cell.position, camera)
+			
 		pygame.draw.circle(
 			self.surface,
 			(0, 0, 0),
@@ -32,3 +37,34 @@ class Drawer:
 
 	def display(self) -> None:
 		pygame.display.flip()
+
+	# def drawChunk(self, chunk: Chunk, camera: AbstractMoveableCamera) -> None:
+	# 	topLeft: FloatPoint2 = self._translate(
+	# 		chunk.realPosition - FloatPoint2.fromDim2(chunk.size) / 2,
+	# 		camera
+	# 	)
+	# 	pygame.draw.line(
+	# 		self.surface,
+	# 		(255, 0, 0),
+	# 		(int(topLeft.x), int(topLeft.y)),
+	# 		(int(topLeft.x + chunk.size.width), int(topLeft.y)),
+	# 	)
+	# 	pygame.draw.line(
+	# 		self.surface,
+	# 		(255, 0, 0),
+	# 		(int(topLeft.x), int(topLeft.y)),
+	# 		(int(topLeft.x), int(topLeft.y + chunk.size.height)),
+	# 	)
+	# 	pygame.draw.line(
+	# 		self.surface,
+	# 		(255, 0, 0),
+	# 		(int(topLeft.x + chunk.size.width), int(topLeft.y)),
+	# 		(int(topLeft.x + chunk.size.width), int(topLeft.y + chunk.size.height)),
+	# 	)
+	# 	pygame.draw.line(
+	# 		self.surface,
+	# 		(255, 0, 0),
+	# 		(int(topLeft.x), int(topLeft.y + chunk.size.height)),
+	# 		(int(topLeft.x + chunk.size.width), int(topLeft.y + chunk.size.height)),
+	# 	)
+
