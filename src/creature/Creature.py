@@ -1,5 +1,5 @@
 from __future__ import annotations
-from src.creature.gene.Gene import Gene
+from src.creature.utils.gene.Gene import Gene
 
 
 class Creature:

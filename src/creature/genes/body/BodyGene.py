@@ -1,4 +1,4 @@
-from src.creature.gene.Gene import Gene
+from src.creature.utils.gene.Gene import Gene
 import random
 
 
