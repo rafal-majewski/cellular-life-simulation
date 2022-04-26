@@ -36,9 +36,6 @@ class CreatureSpawner:
 		)
 		self._cells[bodyGene.id] = cell
 
-
-			
-
 	def applyCellGene(self, cellGene: CellGene) -> None:
 		if isinstance(cellGene, BodyGene):
 			self.applyBodyGene(cellGene)
