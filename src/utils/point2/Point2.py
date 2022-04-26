@@ -1,7 +1,7 @@
 from __future__ import annotations
 from typing import Any, TypeVar, Generic
 from src.utils.dim2.Dim2 import Dim2
-from abc import ABC, abstractmethod, abstractstaticmethod
+from abc import ABC, abstractmethod
 
 T = TypeVar("T")
 
@@ -71,5 +71,14 @@ class Point2(ABC, Generic[T]):
 		pass
 
 	@abstractmethod
+	def divideComponents(self, other: Point2) -> Point2:
+		pass
+
+	@abstractmethod
 	def dotProduct(self, other: Point2) -> float:
+		pass
+
+	@staticmethod
+	@abstractmethod
+	def fromPoint2(point: Point2) -> Point2:
 		pass

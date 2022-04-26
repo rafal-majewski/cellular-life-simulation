@@ -34,9 +34,16 @@ class IntPoint2(Point2[int]):
 	def multiplyComponents(self, other: Point2[int]) -> IntPoint2:
 		return IntPoint2(self.x * other.x, self.y * other.y)
 
+	def divideComponents(self, other: Point2) -> Point2:
+		return IntPoint2(self.x / other.x, self.y / other.y)
+
 	@staticmethod
 	def fromDim2(dim: Dim2[int]) -> IntPoint2:
 		return IntPoint2(dim.width, dim.height)
 
 	def dotProduct(self, other: Point2[int]) -> int:
 		return self.x * other.x + self.y * other.y
+
+	@staticmethod
+	def fromPoint2(point: Point2) -> IntPoint2:
+		return IntPoint2(int(point.x), int(point.y))

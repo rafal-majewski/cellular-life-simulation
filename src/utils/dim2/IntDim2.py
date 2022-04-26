@@ -2,6 +2,7 @@ from __future__ import annotations
 from typing import Any
 from src.utils.dim2.Dim2 import Dim2
 
+
 class IntDim2(Dim2[int]):
 	def __init__(self, width: int, height: int) -> None:
 		self._width: int = width

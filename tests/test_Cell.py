@@ -1,12 +1,12 @@
 from unittest import TestCase
 from src.engine.Cell import Cell
-from src.utils.point2.Point2 import Point2
+from src.utils.point2.FloatPoint2 import FloatPoint2
 
 
 class Test_Cell(TestCase):
 	def test_constructor(self):
-		velocity: Point2 = Point2(1, 2)
-		position: Point2 = Point2(3, 4)
+		velocity: FloatPoint2 = FloatPoint2(1, 2)
+		position: FloatPoint2 = FloatPoint2(3, 4)
 		mass: float = 5.0
 		radius: float = 10.0
 		cell: Cell = Cell(
@@ -22,8 +22,8 @@ class Test_Cell(TestCase):
 
 	def test_mass_setter(self):
 		cell: Cell = Cell(
-			position=Point2(1, 2),
-			velocity=Point2(3, 4),
+			position=FloatPoint2(1, 2),
+			velocity=FloatPoint2(3, 4),
 			mass=5.0,
 			radius=10.0
 		)
@@ -33,8 +33,8 @@ class Test_Cell(TestCase):
 
 	def test_radius_setter(self):
 		cell: Cell = Cell(
-			position=Point2(1, 2),
-			velocity=Point2(3, 4),
+			position=FloatPoint2(1, 2),
+			velocity=FloatPoint2(3, 4),
 			mass=5.0,
 			radius=10.0
 		)
