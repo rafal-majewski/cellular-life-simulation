@@ -1,10 +1,10 @@
 from typing import Optional
-from src.engine.Cell import Cell
+from src.engine.utils.atom.Atom import Atom
 from src.engine.quadtree.Chunk import Chunk
 from src.utils.point2.FloatPoint2 import FloatPoint2
 from src.utils.point2.IntPoint2 import IntPoint2
 from src.utils.dim2.FloatDim2 import FloatDim2
-from src.engine.BoundingBox2 import BoundingBox2
+from src.engine.utils.boundingbox2.BoundingBox2 import BoundingBox2
 
 # TODO:
 # write a better implementation
@@ -31,17 +31,17 @@ class Quadtree:
 		self._minChunkSize: FloatDim2 = minChunkSize
 		self._maxChunkSize: FloatDim2 = maxChunkSize
 		self._mainChunks: dict[int, dict[int, Chunk]] = dict[int, dict[int, Chunk]]()
-		self._chunksByCell: dict[Cell, set[Chunk]] = dict[Cell, set[Chunk]]()
+		self._chunksByAtom: dict[Atom, set[Chunk]] = dict[Atom, set[Chunk]]()
 
 	@property
 	def minChunkSize(self) -> FloatDim2:
 		return self._minChunkSize
 
-	def assertCellFits(self, cell: Cell) -> None:
-		if cell.boundingBox.size.width > self._maxChunkSize.width \
-			or cell.boundingBox.size.height > self._maxChunkSize.height:
+	def assertAtomFits(self, atom: Atom) -> None:
+		if atom.boundingBox.size.width > self._maxChunkSize.width \
+			or atom.boundingBox.size.height > self._maxChunkSize.height:
 			raise ValueError(
-				"Cell does not fit"
+				"Atom does not fit"
 			)
 
 	@property
@@ -72,27 +72,27 @@ class Quadtree:
 				return self._mainChunks[chunkPosition.y][chunkPosition.x]
 		return None
 
-	def _addCellByPoint(self, cell: Cell, point: FloatPoint2) -> None:
+	def _addAtomByPoint(self, atom: Atom, point: FloatPoint2) -> None:
 		chunkPosition: IntPoint2 = IntPoint2.fromPoint2(
 			(point + FloatPoint2.fromDim2(self._maxChunkSize / 2))
 			.divideComponents(FloatPoint2.fromDim2(self._maxChunkSize))
 			.floor()
 		)
 		chunk: Chunk = self._getOrCreateGetChunk(chunkPosition)
-		self._chunksByCell[cell].add(chunk)
-		chunk.addCellByPoint(cell, point)
+		self._chunksByAtom[atom].add(chunk)
+		chunk.addAtomByPoint(atom, point)
 
-	def addCell(self, cell: Cell) -> None:
-		self.assertCellFits(cell)
-		self._chunksByCell[cell] = set[Chunk]()
-		self._addCellByPoint(cell, cell.boundingBox.topLeft)
-		self._addCellByPoint(cell, cell.boundingBox.topRight)
-		self._addCellByPoint(cell, cell.boundingBox.bottomLeft)
-		self._addCellByPoint(cell, cell.boundingBox.bottomRight)
+	def addAtom(self, atom: Atom) -> None:
+		self.assertAtomFits(atom)
+		self._chunksByAtom[atom] = set[Chunk]()
+		self._addAtomByPoint(atom, atom.boundingBox.topLeft)
+		self._addAtomByPoint(atom, atom.boundingBox.topRight)
+		self._addAtomByPoint(atom, atom.boundingBox.bottomLeft)
+		self._addAtomByPoint(atom, atom.boundingBox.bottomRight)
 
-	def removeCell(self, cell: Cell) -> None:
-		for chunk in self._chunksByCell[cell]:
-			chunk.removeCell(cell)
+	def removeAtom(self, atom: Atom) -> None:
+		for chunk in self._chunksByAtom[atom]:
+			chunk.removeAtom(atom)
 			if chunk.isEmpty():
 				chunkPosition: IntPoint2 = IntPoint2.fromPoint2(
 						chunk.realPosition.divideComponents(
@@ -102,9 +102,9 @@ class Quadtree:
 				del self._mainChunks[chunkPosition.y][chunkPosition.x]
 				if len(self._mainChunks[chunkPosition.y]) == 0:
 					del self._mainChunks[chunkPosition.y]
-		del self._chunksByCell[cell]
+		del self._chunksByAtom[atom]
 
-	def _getNeighborsByPoint(self, point: FloatPoint2, acc: set[Cell]) -> None:
+	def _getNeighborsByPoint(self, point: FloatPoint2, acc: set[Atom]) -> None:
 		chunkPosition: IntPoint2 = IntPoint2.fromPoint2(
 			(point + FloatPoint2.fromDim2(self._maxChunkSize / 2))
 			.divideComponents(FloatPoint2.fromDim2(self._maxChunkSize))
@@ -112,12 +112,13 @@ class Quadtree:
 		)
 		chunk: Optional[Chunk] = self._getChunk(chunkPosition)
 		if chunk is not None:
-			for cell in chunk._cells:
-				acc.add(cell)
+			for atom in chunk._atoms:
+				acc.add(atom)
 
-	def getNeighbors(self, boundingBox: BoundingBox2) -> set[Cell]:
+	def getNeighbors(self, atom: Atom) -> set[Atom]:
+		boundingBox: BoundingBox2 = atom.boundingBox
 		# assert
-		neighbors: set[Cell] = set[Cell]()
+		neighbors: set[Atom] = set[Atom]()
 		self._getNeighborsByPoint(boundingBox.topLeft, neighbors)
 		self._getNeighborsByPoint(boundingBox.topRight, neighbors)
 		self._getNeighborsByPoint(boundingBox.bottomLeft, neighbors)

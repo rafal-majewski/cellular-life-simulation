@@ -1,23 +1,23 @@
 # Wrapper class for preventing direct modification of
 # joint
 
-from src.engine.physics.CellView import CellView
-from src.engine.Joint import Joint
+from src.engine.physics.utils.atomview.AtomView import AtomView
+from src.engine.physics.utils.joint.Joint import Joint
 
 
 class JointView:
 	def __init__(self, joint: Joint) -> None:
 		self._joint: Joint = joint
-		self._cell1: CellView = CellView(joint.cell1)
-		self._cell2: CellView = CellView(joint.cell2)
+		self._atom1: AtomView = AtomView(joint.atom1)
+		self._atom2: AtomView = AtomView(joint.atom2)
 
 	@property
-	def cell1(self) -> CellView:
-		return self._cell1
+	def atom1(self) -> AtomView:
+		return self._atom1
 
 	@property
-	def cell2(self) -> CellView:
-		return self._cell2
+	def atom2(self) -> AtomView:
+		return self._atom2
 
 	@property
 	def restDistance(self) -> float:
@@ -31,7 +31,7 @@ class JointView:
 		return (
 			f"JointView("
 			f"joint={self._joint}, "
-			f"cell1={self.cell1}, "
-			f"cell2={self.cell2}"
+			f"atom1={self.atom1}, "
+			f"atom2={self.atom2}"
 			f")"
 		)

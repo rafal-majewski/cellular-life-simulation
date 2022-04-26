@@ -1,48 +1,47 @@
-from src.engine.physics.CellView import CellView
+from src.engine.physics.utils.atomview.AtomView import AtomView
 from src.utils.point2.FloatPoint2 import FloatPoint2
 
 
 class CollisionResolver:
-	def test(self, cellView1: CellView, cellView2: CellView) -> bool:
+	def test(self, atomView1: AtomView, atomView2: AtomView) -> bool:
 		return \
-			(cellView1.position - cellView2.position).magnitude \
-			< cellView1.radius + cellView2.radius
+			(atomView1.position - atomView2.position).magnitude \
+			< atomView1.radius + atomView2.radius
 
-	def collision(self, cellView1: CellView, cellView2: CellView) -> None:
-		# print("cellCellCollision")
+	def collision(self, atomView1: AtomView, atomView2: AtomView) -> None:
+		# print("atomAtomCollision")
 		# https://en.wikipedia.org/wiki/Elastic_collision
 
-		# check if the cells should bounce
-		if (cellView1.velocity - cellView2.velocity) \
-			.dotProduct(cellView1.position - cellView2.position) >= 0:
+		# check if the atoms should bounce
+		if (atomView1.velocity - atomView2.velocity) \
+			.dotProduct(atomView1.position - atomView2.position) >= 0:
 			return
 
-		distance: float = (cellView1.position - cellView2.position).magnitude
+		distance: float = (atomView1.position - atomView2.position).magnitude
 
 		newVelocity1: FloatPoint2 = \
-			cellView1.velocity \
-			- 2 * cellView2.mass / (cellView1.mass + cellView2.mass) \
+			atomView1.velocity \
+			- 2 * atomView2.mass / (atomView1.mass + atomView2.mass) \
 			* (
-				(cellView1.velocity - cellView2.velocity)
-				.dotProduct(cellView1.position - cellView2.position)
+				(atomView1.velocity - atomView2.velocity)
+				.dotProduct(atomView1.position - atomView2.position)
 			) \
 			/ (distance ** 2) \
-			* (cellView1.position - cellView2.position)
+			* (atomView1.position - atomView2.position)
 		newVelocity2: FloatPoint2 = \
-			cellView2.velocity \
-			- 2 * cellView1.mass / (cellView1.mass + cellView2.mass) \
+			atomView2.velocity \
+			- 2 * atomView1.mass / (atomView1.mass + atomView2.mass) \
 			* (
-				(cellView2.velocity - cellView1.velocity)
-				.dotProduct(cellView2.position - cellView1.position)
+				(atomView2.velocity - atomView1.velocity)
+				.dotProduct(atomView2.position - atomView1.position)
 			) \
 			/ (distance ** 2) \
-			* (cellView2.position - cellView1.position)
+			* (atomView2.position - atomView1.position)
 
-		cellView1.velocity = newVelocity1
-		cellView2.velocity = newVelocity2
+		atomView1.velocity = newVelocity1
+		atomView2.velocity = newVelocity2
 
-	def resolve(self, cellView1: CellView, cellView2: CellView) -> None:
-		# addDeltaTime
-		if not self.test(cellView1, cellView2):
+	def resolve(self, deltaTime: float, atomView1: AtomView, atomView2: AtomView) -> None:
+		if not self.test(atomView1, atomView2):
 			return
-		self.collision(cellView1, cellView2)
+		self.collision(atomView1, atomView2)

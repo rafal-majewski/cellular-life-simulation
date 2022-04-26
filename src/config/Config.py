@@ -1,17 +1,21 @@
 from typing import Any
-from src.config.worldconfig.WorldConfig import WorldConfig
+from src.config.gameconfig.GameConfig import GameConfig
 
 
 class Config:
-	def __init__(self, world: WorldConfig):
-		self._world: WorldConfig = world
+	def __init__(
+		self,
+		*,
+		game: GameConfig,
+	) -> None:
+		self._game: GameConfig = game
 
 	@property
-	def world(self) -> WorldConfig:
-		return self._world
+	def game(self) -> GameConfig:
+		return self._game
 
 	@staticmethod
 	def fromJson(json: Any):
 		return Config(
-			world=WorldConfig.fromJson(json["world"])
+			game=GameConfig.fromJson(json["game"])
 		)

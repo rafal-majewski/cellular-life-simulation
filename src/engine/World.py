@@ -1,13 +1,13 @@
-from src.engine.Cell import Cell
-from src.engine.Joint import Joint
+from src.engine.utils.atom.Atom import Atom
+from src.engine.physics.utils.joint.Joint import Joint
 from src.engine.physics.CollisionResolver import CollisionResolver
 from src.engine.physics.JointResolver import JointResolver
-from src.engine.physics.CellView import CellView
-from src.engine.physics.JointView import JointView
+from src.engine.physics.utils.atomview.AtomView import AtomView
+from src.engine.physics.utils.jointview.JointView import JointView
 from src.utils.dim2.Dim2 import Dim2
 from src.engine.physics.MovementResolver import MovementResolver
 from src.engine.quadtree.Quadtree import Quadtree
-from src.utils.dim2.FloatDim2 import FloatDim2
+from src.config.gameconfig.worldconfig.WorldConfig import WorldConfig
 
 
 class World:
@@ -17,71 +17,77 @@ class World:
 		collisionResolver: CollisionResolver,
 		jointResolver: JointResolver,
 		movementResolver: MovementResolver,
-		size: Dim2,
+		config: WorldConfig,
+		# size: Dim2,
 	) -> None:
-		self._cells: set[Cell] = set[Cell]()
+		self._atoms: set[Atom] = set[Atom]()
 		self._joints: set[Joint] = set[Joint]()
 		self.collisionResolver: CollisionResolver = collisionResolver
 		self.jointResolver: JointResolver = jointResolver
-		self.moveResolver: MovementResolver = movementResolver
-		self.quadtree = Quadtree(
-			minChunkSize=FloatDim2(3, 3),
-			maxChunkSize=FloatDim2(30, 30)
+		self.movementResolver: MovementResolver = movementResolver
+		self._config: WorldConfig = config
+		self._quadtree = Quadtree(
+			minChunkSize=self._config.quadtree.chunks.minSize,
+			maxChunkSize=self._config.quadtree.chunks.maxSize,
 		)
-		self.size: Dim2 = size
+		# self.size: Dim2 = size
 
-	def addCell(self, cell: Cell) -> None:
-		self._cells.add(cell)
-		self.quadtree.addCell(cell)
+	def addAtom(self, atom: Atom) -> None:
+		self._atoms.add(atom)
+		self._quadtree.addAtom(atom)
 
 	def addJoint(self, joint: Joint) -> None:
 		self._joints.add(joint)
 
 	@property
-	def cells(self) -> frozenset[Cell]:
-		return frozenset(self._cells)
+	def atoms(self) -> frozenset[Atom]:
+		return frozenset(self._atoms)
 
 	@property
 	def joints(self) -> frozenset[Joint]:
 		return frozenset(self._joints)
 
-	def applyCellView(self, cellView: CellView) -> None:
-		cell: Cell = cellView._cell
-		self.quadtree.removeCell(cell)
-		cell.position = cellView.position
-		cell.velocity = cellView.velocity
-		self.quadtree.addCell(cell)
+	@property
+	def config(self) -> WorldConfig:
+		return self._config
+
+	def applyAtomView(self, atomView: AtomView) -> None:
+		atom: Atom = atomView.atom
+		self._quadtree.removeAtom(atom)
+		atom.position = atomView.position
+		atom.velocity = atomView.velocity
+		self._quadtree.addAtom(atom)
 
 	def applyJointView(self, jointView: JointView) -> None:
-		cellView1: CellView = jointView.cell1
-		cellView2: CellView = jointView.cell2
-		self.applyCellView(cellView1)
-		self.applyCellView(cellView2)
+		atomView1: AtomView = jointView.atom1
+		atomView2: AtomView = jointView.atom2
+		self.applyAtomView(atomView1)
+		self.applyAtomView(atomView2)
 
 	def resolveCollisions(self, deltaTime: float) -> None:
-		cellsList: list[Cell] = list(self.cells)
-		for i1 in range(len(cellsList)):
-			cell1: Cell = cellsList[i1]
-			possibleCollisions: set[Cell] = self.quadtree.getNeighbors(cell1.boundingBox)
-			possibleCollisions.remove(cell1)
-			for cell2 in possibleCollisions:
-				cellView1: CellView = CellView(cell1)
-				cellView2: CellView = CellView(cell2)
-				self.collisionResolver.resolve(cellView1, cellView2)
-				self.applyCellView(cellView1)
-				self.applyCellView(cellView2)
+		atomsList: list[Atom] = list(self.atoms)
+		for i1 in range(len(atomsList)):
+			atom1: Atom = atomsList[i1]
+			possibleCollisions: set[Atom] = self._quadtree.getNeighbors(atom1)
+			possibleCollisions.remove(atom1)
+			for atom2 in possibleCollisions:
+				atomView1: AtomView = AtomView(atom1)
+				atomView2: AtomView = AtomView(atom2)
+				self.collisionResolver.resolve(deltaTime, atomView1, atomView2)
+				self.applyAtomView(atomView1)
+				self.applyAtomView(atomView2)
 
 	def resolveJoints(self, deltaTime: float) -> None:
 		for joint in self.joints:
 			jointView: JointView = JointView(joint)
-			self.jointResolver.resolve(jointView)
+			self.jointResolver.resolve(deltaTime, jointView)
 			self.applyJointView(jointView)
 
 	def resolveMovements(self, deltaTime: float) -> None:
-		for cell in self.cells:
-			cellView: CellView = CellView(cell)
-			self.moveResolver.resolve(cellView, deltaTime)
-			self.applyCellView(cellView)
+		for atom in self.atoms:
+			atomView: AtomView = AtomView(atom)
+			self.movementResolver.resolve(deltaTime, atomView)
+			self.applyAtomView(atomView)
 
 	def tick(self, deltaTime: float) -> None:
 		self.resolveCollisions(deltaTime)

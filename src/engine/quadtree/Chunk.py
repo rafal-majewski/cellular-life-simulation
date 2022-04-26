@@ -2,7 +2,7 @@ from __future__ import annotations
 from typing import Any
 from src.utils.dim2.FloatDim2 import FloatDim2
 from src.utils.point2.FloatPoint2 import FloatPoint2
-from src.engine.Cell import Cell
+from src.engine.utils.atom.Atom import Atom
 from abc import ABC, abstractmethod
 # from src.engine.quadtree.NonFinalChunk import NonFinalChunk
 # from src.engine.quadtree.FinalChunk import FinalChunk
@@ -19,7 +19,7 @@ class Chunk(ABC):
 	) -> None:
 		self._realPosition: FloatPoint2 = realPosition
 		self._size: FloatDim2 = size
-		self._cells: set[Cell] = set[Cell]()
+		self._atoms: set[Atom] = set[Atom]()
 
 	@property
 	def size(self) -> FloatDim2:
@@ -30,11 +30,11 @@ class Chunk(ABC):
 		return self._realPosition
 
 	@abstractmethod
-	def addCellByPoint(self, cell: Cell, point: FloatPoint2) -> None:
+	def addAtomByPoint(self, atom: Atom, point: FloatPoint2) -> None:
 		pass
 
-	def removeCell(self, cell: Cell) -> None:
-		self._cells.remove(cell)
+	def removeAtom(self, atom: Atom) -> None:
+		self._atoms.remove(atom)
 
 	@abstractmethod
 	def isEmpty(self) -> bool:
@@ -74,8 +74,8 @@ class FinalChunk(Chunk):
 			size=size
 		)
 
-	def addCellByPoint(self, cell: Cell, point: FloatPoint2) -> None:
-		self._cells.add(cell)
+	def addAtomByPoint(self, atom: Atom, point: FloatPoint2) -> None:
+		self._atoms.add(atom)
 
 	def isEmpty(self) -> bool:
-		return len(self._cells) == 0
+		return len(self._atoms) == 0

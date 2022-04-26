@@ -8,5 +8,5 @@ class Creature:
 
 	@staticmethod
 	def generate() -> Creature:
-		creature = Creature()
+		creature: Creature = Creature()
 		return creature

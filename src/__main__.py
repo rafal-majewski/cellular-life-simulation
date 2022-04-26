@@ -1,7 +1,7 @@
 import pygame
 from src.game.Game import Game
-from src.pygameimp.Camera import Camera
-from src.abstractcamera.AbstractCamera import AbstractCamera
+from src.pygameimp.Camera import PygameCamera
+from src.camera.Camera import Camera
 from src.engine.World import World
 from src.pygameimp.Drawer import Drawer
 from src.utils.point2.FloatPoint2 import FloatPoint2
@@ -21,10 +21,15 @@ def main(config: Config):
 		collisionResolver=CollisionResolver(),
 		jointResolver=JointResolver(),
 		movementResolver=MovementResolver(),
-		size=IntDim2(800, 600),
+		# size=IntDim2(800, 600),
+		config=config.game.world,
 	)
-	camera: AbstractCamera = Camera(drawer=drawer, position=FloatPoint2(0, 0))
-	game: Game = Game(world=world, camera=camera)
+	camera: Camera = PygameCamera(drawer=drawer, position=FloatPoint2(0, 0))
+	game: Game = Game(
+		world=world,
+		camera=camera,
+		config=config.game,
+	)
 	game.start()
 
 if __name__ == "__main__":

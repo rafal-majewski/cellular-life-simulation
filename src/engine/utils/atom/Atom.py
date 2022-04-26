@@ -1,42 +1,27 @@
+from typing import Optional
 from src.utils.dim2.FloatDim2 import FloatDim2
 from src.utils.point2.FloatPoint2 import FloatPoint2
-from src.engine.BoundingBox2 import BoundingBox2
+from src.engine.utils.boundingbox2.BoundingBox2 import BoundingBox2
 from src.utils.color.Color import Color
+from src.engine.utils.entity.Entity import Entity
 
-
-class Cell:
+class Atom(Entity):
 	def __init__(
 		self,
 		*,
 		position: FloatPoint2,
-		velocity: FloatPoint2 = None,
+		velocity: Optional[FloatPoint2] = None,
 		mass: float,
 		radius: float,
 		color: Color,
-
 	) -> None:
-		self.position: FloatPoint2 = position
-		self.velocity: FloatPoint2 = \
-			FloatPoint2(0, 0) if velocity is None else velocity
+		super().__init__(
+			position=position,
+			velocity=velocity,
+		)
 		self.mass: float = mass
 		self.radius: float = radius
 		self.color: Color = color
-
-	@property
-	def position(self) -> FloatPoint2:
-		return self._position
-
-	@position.setter
-	def position(self, position: FloatPoint2) -> None:
-		self._position = position
-
-	@property
-	def velocity(self) -> FloatPoint2:
-		return self._velocity
-
-	@velocity.setter
-	def velocity(self, velocity: FloatPoint2) -> None:
-		self._velocity = velocity
 
 	@property
 	def mass(self) -> float:
@@ -63,7 +48,7 @@ class Cell:
 
 	def __str__(self) -> str:
 		return (
-			f"Cell("
+			f"Atom("
 			f"position={self.position}, "
 			f"velocity={self.velocity}, "
 			f"mass={self.mass}, "

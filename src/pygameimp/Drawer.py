@@ -1,6 +1,6 @@
-from src.engine.Cell import Cell
+from src.engine.utils.atom.Atom import Atom
 from pygame.surface import Surface
-from src.abstractcamera.AbstractMoveableCamera import AbstractMoveableCamera
+from src.camera.MoveableCamera import MoveableCamera
 import pygame
 from src.utils.point2.FloatPoint2 import FloatPoint2
 # from src.engine.quadtree.Chunk import Chunk
@@ -20,19 +20,19 @@ class Drawer:
 			self.surface.get_height() / 2,
 		)
 
-	def _translate(self, point: FloatPoint2, camera: AbstractMoveableCamera) -> FloatPoint2:
+	def _translate(self, point: FloatPoint2, camera: MoveableCamera) -> FloatPoint2:
 		return point \
 			- camera.position \
 			+ self.surfaceCenterPosition
 
-	def drawCell(self, cell: Cell, camera: AbstractMoveableCamera) -> None:
-		positionOnScreen: FloatPoint2 = self._translate(cell.position, camera)
+	def drawAtom(self, atom: Atom, camera: MoveableCamera) -> None:
+		positionOnScreen: FloatPoint2 = self._translate(atom.position, camera)
 			
 		pygame.draw.circle(
 			self.surface,
-			self.colorToTuple(cell.color),
+			self.colorToTuple(atom.color),
 			(int(positionOnScreen.x), int(positionOnScreen.y)),
-			int(cell.radius)
+			int(atom.radius)
 		)
 
 	def clear(self) -> None:

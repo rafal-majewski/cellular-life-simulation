@@ -1,10 +1,9 @@
 from __future__ import annotations
 from typing import Any
-from src.utils.color.Color import Color
 
 
 class CellConfig:
-	def __init__(self, scale: float):
+	def __init__(self, scale: float) -> None:
 		self._scale: float = scale
 
 	@property
