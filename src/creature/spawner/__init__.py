@@ -1,5 +1,5 @@
-from src.engine.physics.utils.joint.Joint import Joint
-from src.engine.atoms.cell.Cell import Cell
+from src.world.physics.utils.joint.Joint import Joint
+from src.world.atoms.cell.Cell import Cell
 
 
 class CreatureSpawner:

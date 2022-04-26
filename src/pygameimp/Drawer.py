@@ -1,9 +1,9 @@
-from src.engine.utils.atom.Atom import Atom
+from src.world.utils.atom.Atom import Atom
 from pygame.surface import Surface
 from src.camera.MoveableCamera import MoveableCamera
 import pygame
 from src.utils.point2.FloatPoint2 import FloatPoint2
-# from src.engine.quadtree.Chunk import Chunk
+# from src.world.quadtree.Chunk import Chunk
 from src.utils.color.Color import Color
 
 class Drawer:

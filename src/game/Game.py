@@ -1,8 +1,8 @@
 import random
 from typing import Optional
 from src.camera.Camera import Camera
-from src.engine.world.World import World
-from src.engine.atoms.air.Air import Air
+from src.world.World import World
+from src.world.atoms.air.Air import Air
 import time
 from src.config.game.GameConfig import GameConfig
 from src.config.world.atoms.air.AirConfig import AirConfig

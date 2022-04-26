@@ -1,5 +1,5 @@
 from unittest import TestCase
-from src.engine.utils.atom.Atom import Atom
+from src.world.utils.atom.Atom import Atom
 from src.utils.point2.FloatPoint2 import FloatPoint2
 from src.utils.color.Color import Color
 
