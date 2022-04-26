@@ -1,10 +1,10 @@
-from src.creature.utils.gene.Gene import Gene
+from src.creature.utils.gene.cell.CellGene import CellGene
 import random
 
 
-class BodyGene(Gene):
+class BodyGene(CellGene):
 	def __init__(self, id: str, radius: float) -> None:
-		super().__init__(id)
+		super().__init__(id=id)
 		self._radius = radius
 
 	@property
