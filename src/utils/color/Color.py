@@ -15,3 +15,6 @@ class Color:
 			g=int(json["g"]),
 			b=int(json["b"]),
 		)
+
+	def __str__(self) -> str:
+		return f"Color(r={self.r}, g={self.g}, b={self.b})"

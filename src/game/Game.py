@@ -7,6 +7,9 @@ import time
 from src.config.game.GameConfig import GameConfig
 from src.config.world.atoms.air.AirConfig import AirConfig
 from src.utils.point2.FloatPoint2 import FloatPoint2
+from src.creature.Creature import Creature
+from src.creature.builder.CreatureBuilder import CreatureBuilder
+from src.creature.genesmanager.GenesManager import GenesManager
 
 
 class Game:
@@ -57,9 +60,24 @@ class Game:
 		air: Air = self.createAir()
 		self.world.addAtom(air)
 
+	def spawnCreature(self, creature: Creature) -> None:
+		# print(creature)
+		for cell in creature.cells:
+			print(cell)
+			self.world.addAtom(cell)
+		for joint in creature.joints:
+			self.world.addJoint(joint)
+
+
 	def start(self) -> None:
-		for i in range(280):
-			self.spawnAir()
+		# for _ in range(180):
+		# 	self.spawnAir()
+		for _ in range(10):
+			self.spawnCreature(
+				CreatureBuilder.build(
+					genesManager=GenesManager.generateRandom()
+				)
+			)
 		self.display()
 		while True:
 			self.tick()

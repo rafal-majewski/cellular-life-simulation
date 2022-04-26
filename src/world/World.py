@@ -90,6 +90,7 @@ class World:
 
 	def resolveMovements(self, deltaTime: float) -> None:
 		for atom in self.atoms:
+			print(atom)
 			atomView: AtomView = AtomView(atom)
 			self.movementResolver.resolve(deltaTime, atomView)
 			self.applyAtomView(atomView)

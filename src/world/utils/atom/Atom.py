@@ -53,5 +53,6 @@ class Atom(Entity):
 			f"velocity={self.velocity}, "
 			f"mass={self.mass}, "
 			f"radius={self.radius}"
+			f"color={self.color})"
 			f")"
 		)
