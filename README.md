@@ -1,4 +1,6 @@
 # cellular-life-simulation
+![Tests](https://github.com/Rafal-Majewski/cellular-life-simulation/actions/workflows/tests.yml/badge.svg)
+
 ## config.json
 ```json
 {
