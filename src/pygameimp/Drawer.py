@@ -3,12 +3,15 @@ from pygame.surface import Surface
 from src.abstractcamera.AbstractMoveableCamera import AbstractMoveableCamera
 import pygame
 from src.utils.point2.FloatPoint2 import FloatPoint2
-from src.engine.quadtree.Chunk import Chunk
-
+# from src.engine.quadtree.Chunk import Chunk
+from src.utils.color.Color import Color
 
 class Drawer:
 	def __init__(self, surface: Surface) -> None:
 		self.surface = surface
+
+	def colorToTuple(self, color: Color) -> tuple[int, int, int]:
+		return (color.r, color.g, color.b)
 
 	@property
 	def surfaceCenterPosition(self) -> FloatPoint2:
@@ -27,7 +30,7 @@ class Drawer:
 			
 		pygame.draw.circle(
 			self.surface,
-			(0, 0, 0),
+			self.colorToTuple(cell.color),
 			(int(positionOnScreen.x), int(positionOnScreen.y)),
 			int(cell.radius)
 		)

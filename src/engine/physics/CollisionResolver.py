@@ -42,6 +42,7 @@ class CollisionResolver:
 		cellView2.velocity = newVelocity2
 
 	def resolve(self, cellView1: CellView, cellView2: CellView) -> None:
+		# addDeltaTime
 		if not self.test(cellView1, cellView2):
 			return
 		self.collision(cellView1, cellView2)

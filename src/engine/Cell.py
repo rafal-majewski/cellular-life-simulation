@@ -1,6 +1,7 @@
 from src.utils.dim2.FloatDim2 import FloatDim2
 from src.utils.point2.FloatPoint2 import FloatPoint2
 from src.engine.BoundingBox2 import BoundingBox2
+from src.utils.color.Color import Color
 
 
 class Cell:
@@ -11,12 +12,15 @@ class Cell:
 		velocity: FloatPoint2 = None,
 		mass: float,
 		radius: float,
+		color: Color,
+
 	) -> None:
 		self.position: FloatPoint2 = position
 		self.velocity: FloatPoint2 = \
 			FloatPoint2(0, 0) if velocity is None else velocity
 		self.mass: float = mass
 		self.radius: float = radius
+		self.color: Color = color
 
 	@property
 	def position(self) -> FloatPoint2:

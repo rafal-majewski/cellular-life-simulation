@@ -6,7 +6,8 @@ from src.utils.point2.IntPoint2 import IntPoint2
 from src.utils.dim2.FloatDim2 import FloatDim2
 from src.engine.BoundingBox2 import BoundingBox2
 
-
+# TODO:
+# write a better implementation
 
 class Quadtree:
 	def assertValidChunkSizeBoundaries(

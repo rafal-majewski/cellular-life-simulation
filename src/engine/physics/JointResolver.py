@@ -1,9 +1,11 @@
 from src.engine.physics.JointView import JointView
 from src.utils.point2.FloatPoint2 import FloatPoint2
 
-
 class JointResolver:
 	def resolve(self, jointView: JointView) -> None:
+		# todo:
+		# addDeltaTime
+		# the function violates the law of conservation of energy
 		dir1: FloatPoint2 = \
 			(jointView.cell2.position - jointView.cell1.position).normalize()
 		dir2: FloatPoint2 = \

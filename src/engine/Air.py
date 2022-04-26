@@ -1,5 +1,6 @@
 from src.engine.Cell import Cell
 from src.utils.point2.FloatPoint2 import FloatPoint2
+from src.utils.color.Color import Color
 
 
 class Air(Cell):
@@ -14,6 +15,7 @@ class Air(Cell):
 			velocity=velocity,
 			mass=0.1,
 			radius=10,
+			color=Color(r=0, g=0, b=255),
 		)
 
 	def __str__(self) -> str:

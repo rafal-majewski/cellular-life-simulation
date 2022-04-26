@@ -3,8 +3,8 @@ import random
 
 
 class BodyGene(Gene):
-	def __init__(self, radius: float) -> None:
-		super().__init__()
+	def __init__(self, id: str, radius: float) -> None:
+		super().__init__(id)
 		self._radius = radius
 
 	@property

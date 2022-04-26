@@ -1,6 +1,12 @@
+from __future__ import annotations
 from src.creature.gene.Gene import Gene
 
 
 class Creature:
 	def __init__(self) -> None:
-		self.genes: set[Gene] = set[Gene]()
+		self._genes: set[Gene] = set[Gene]()
+
+	@staticmethod
+	def generate() -> Creature:
+		creature = Creature()
+		return creature
