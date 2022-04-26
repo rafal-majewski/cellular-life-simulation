@@ -1,4 +1,5 @@
 from __future__ import annotations
+from typing import Any
 from src.utils.dim2.Dim2 import Dim2
 
 
@@ -38,3 +39,7 @@ class FloatDim2(Dim2[float]):
 
 	def __rtruediv__(self, scalar: float) -> FloatDim2:
 		return FloatDim2(self.width / scalar, self.height / scalar)
+
+	@staticmethod
+	def fromJson(json: Any) -> FloatDim2:
+		return FloatDim2(json["width"], json["height"])

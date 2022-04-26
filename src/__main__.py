@@ -9,9 +9,11 @@ from src.utils.dim2.IntDim2 import IntDim2
 from src.engine.physics.CollisionResolver import CollisionResolver
 from src.engine.physics.JointResolver import JointResolver
 from src.engine.physics.MovementResolver import MovementResolver
+import json
+from src.config.Config import Config
 
 
-if __name__ == "__main__":
+def main(config: Config):
 	pygame.init()
 	surface: pygame.surface.Surface = pygame.display.set_mode((800, 600))
 	drawer: Drawer = Drawer(surface)
@@ -24,3 +26,8 @@ if __name__ == "__main__":
 	camera: AbstractCamera = Camera(drawer=drawer, position=FloatPoint2(0, 0))
 	game: Game = Game(world=world, camera=camera)
 	game.start()
+
+if __name__ == "__main__":
+	with open("config.json", "r") as configFile:
+		config: Config = Config.fromJson(json.load(configFile))
+		main(config)
