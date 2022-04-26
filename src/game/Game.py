@@ -1,11 +1,11 @@
 import random
 from typing import Optional
 from src.camera.Camera import Camera
-from src.engine.World import World
+from src.engine.world.World import World
 from src.engine.atoms.air.Air import Air
 import time
-from src.config.gameconfig.GameConfig import GameConfig
-from src.config.gameconfig.worldconfig.atomsconfig.airconfig.AirConfig import AirConfig
+from src.config.game.GameConfig import GameConfig
+from src.config.world.atoms.air.AirConfig import AirConfig
 from src.utils.point2.FloatPoint2 import FloatPoint2
 
 
@@ -37,13 +37,13 @@ class Game:
 		time.sleep(max(0, self._frameTime - (time.time() - self._lastTickTimestamp)))
 
 	def generateRandomPosition(self) -> FloatPoint2:
-		return FloatPoint2.fromDim2(self._config.world.size / 2) \
+		return FloatPoint2.fromDim2(self.world.size / 2) \
 			.multiplyComponents(
 				FloatPoint2(random.uniform(-1, 1), random.uniform(-1, 1))
 		)
 
 	def createAir(self) -> Air:
-		airConfig: AirConfig = self._config.world.atoms.air
+		airConfig: AirConfig = self.world.config.atoms.air
 		air: Air = Air(
 			position=self.generateRandomPosition(),
 			velocity=FloatPoint2(random.uniform(-50, 50), random.uniform(-50, 50)),

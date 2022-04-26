@@ -1,6 +1,6 @@
 from __future__ import annotations
 from typing import Any
-from src.config.gameconfig.worldconfig.quadtreeconfig.chunksconfig.ChunksConfig import ChunksConfig
+from src.config.world.quadtree.chunks.ChunksConfig import ChunksConfig
 
 
 class QuadtreeConfig:

@@ -1,7 +1,7 @@
 from typing import Any
 from src.utils.dim2.FloatDim2 import FloatDim2
-from src.config.gameconfig.worldconfig.atomsconfig.AtomsConfig import AtomsConfig
-from src.config.gameconfig.worldconfig.quadtreeconfig.QuadtreeConfig import QuadtreeConfig
+from src.config.world.atoms.AtomsConfig import AtomsConfig
+from src.config.world.quadtree.QuadtreeConfig import QuadtreeConfig
 
 
 class WorldConfig:

@@ -1,7 +1,7 @@
 from __future__ import annotations
 from typing import Any
-from src.config.gameconfig.worldconfig.atomsconfig.airconfig.AirConfig import AirConfig
-from src.config.gameconfig.worldconfig.atomsconfig.cellsconfig.CellConfig import CellConfig
+from src.config.world.atoms.air.AirConfig import AirConfig
+from src.config.world.atoms.cells.CellConfig import CellConfig
 
 
 class AtomsConfig:

@@ -6,8 +6,9 @@ from src.engine.physics.utils.atomview.AtomView import AtomView
 from src.engine.physics.utils.jointview.JointView import JointView
 from src.utils.dim2.Dim2 import Dim2
 from src.engine.physics.MovementResolver import MovementResolver
-from src.engine.quadtree.Quadtree import Quadtree
-from src.config.gameconfig.worldconfig.WorldConfig import WorldConfig
+from src.engine.utils.quadtree.Quadtree import Quadtree
+from src.config.world.WorldConfig import WorldConfig
+from src.utils.dim2.FloatDim2 import FloatDim2
 
 
 class World:
@@ -30,7 +31,11 @@ class World:
 			minChunkSize=self._config.quadtree.chunks.minSize,
 			maxChunkSize=self._config.quadtree.chunks.maxSize,
 		)
-		# self.size: Dim2 = size
+		self._size: FloatDim2 = self._config.size
+
+	@property
+	def size(self) -> FloatDim2:
+		return self._size
 
 	def addAtom(self, atom: Atom) -> None:
 		self._atoms.add(atom)

@@ -44,3 +44,10 @@ class IntDim2(Dim2[int]):
 
 	def __rtruediv__(self, scalar: int) -> IntDim2:
 		return IntDim2(int(self.width / scalar), int(self.height / scalar))
+
+	@staticmethod
+	def fromJson(json: Any) -> IntDim2:
+		return IntDim2(json["width"], json["height"])
+
+	def toTuple(self) -> tuple[int, int]:
+		return (self.width, self.height)

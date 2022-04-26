@@ -1,6 +1,6 @@
 from typing import Optional
 from src.engine.utils.atom.Atom import Atom
-from src.engine.quadtree.Chunk import Chunk
+from src.engine.utils.quadtree.Chunk import Chunk
 from src.utils.point2.FloatPoint2 import FloatPoint2
 from src.utils.point2.IntPoint2 import IntPoint2
 from src.utils.dim2.FloatDim2 import FloatDim2

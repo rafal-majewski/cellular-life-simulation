@@ -1,8 +1,8 @@
 from src.camera.MoveableCamera import MoveableCamera
-from src.engine.World import World
+from src.engine.world.World import World
 from src.pygameimp.Drawer import Drawer
 from src.utils.point2.FloatPoint2 import FloatPoint2
-from src.engine.quadtree.Quadtree import Quadtree
+from src.engine.utils.quadtree.Quadtree import Quadtree
 
 
 class PygameCamera(MoveableCamera):
